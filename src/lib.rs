@@ -63,6 +63,7 @@ pub struct TextureConfig<'a> {
     pub sample_count: u32,
     /// The dimension of the texture.
     pub dimension: TextureDimension,
+    pub filter: FilterMode,
 }
 
 impl<'a> Default for TextureConfig<'a> {
@@ -80,6 +81,7 @@ impl<'a> Default for TextureConfig<'a> {
             mip_level_count: 1,
             sample_count: 1,
             dimension: TextureDimension::D2,
+            filter: FilterMode::Linear,
         }
     }
 }
@@ -130,9 +132,9 @@ impl Texture {
             address_mode_u: AddressMode::ClampToEdge,
             address_mode_v: AddressMode::ClampToEdge,
             address_mode_w: AddressMode::ClampToEdge,
-            mag_filter: FilterMode::Linear,
-            min_filter: FilterMode::Linear,
-            mipmap_filter: FilterMode::Linear,
+            mag_filter: config.filter,
+            min_filter: config.filter,
+            mipmap_filter: config.filter,
             lod_min_clamp: -100.0,
             lod_max_clamp: 100.0,
             compare: None,
